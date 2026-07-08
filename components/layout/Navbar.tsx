@@ -1,13 +1,17 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Menu, X, ChevronDown, Globe, ShoppingCart, User, Building2,
-  Hospital, Code2, BarChart3, Phone, Mail, MapPin, ArrowRight,
+  Hospital, Code2, BarChart3, Phone, Mail, ArrowRight,
   Briefcase, BookOpen, Info, MessageSquare, Zap, Shield, TrendingUp,
   Palette, MousePointer2, Users,
 } from "lucide-react";
+
+/* Simple anchor link for Vite (replaces next/link) */
+const L = ({ href, children, className, onClick }: { href: string; children: React.ReactNode; className?: string; onClick?: () => void }) => (
+  <a href={href} className={className} onClick={onClick}>{children}</a>
+);
 
 const services = [
   { icon: Building2, title: "Business / Corporate Websites", desc: "Multi-page sites with blog, SEO & inquiry forms", href: "/services#corporate", color: "text-blue-400" },
@@ -76,7 +80,7 @@ export default function Navbar() {
       >
         <div className="container-max px-4 sm:px-6 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
+          <L href="/" className="flex items-center gap-3 group">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center glow-green transition-transform group-hover:scale-110">
               <span className="text-white font-black text-lg">S</span>
             </div>
@@ -84,11 +88,11 @@ export default function Navbar() {
               <span className="text-white font-black text-xl tracking-tight">SOLVARA</span>
               <div className="text-accent text-[9px] font-semibold tracking-[0.2em] uppercase -mt-0.5">Solutions</div>
             </div>
-          </Link>
+          </L>
 
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-1" ref={menuRef}>
-            <Link href="/" className="px-4 py-2 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg text-sm font-medium transition-all">Home</Link>
+            <L href="/" className="px-4 py-2 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg text-sm font-medium transition-all">Home</L>
 
             {/* Services Mega Menu */}
             <div
@@ -126,7 +130,7 @@ export default function Navbar() {
                     </div>
                     <div className="grid grid-cols-3 gap-2">
                       {services.map((s) => (
-                        <Link key={s.title} href={s.href}
+                        <L key={s.title} href={s.href}
                           className="flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-all group"
                           onClick={() => setActiveMenu(null)}
                         >
@@ -135,14 +139,14 @@ export default function Navbar() {
                             <p className="text-white text-sm font-semibold group-hover:text-accent transition-colors">{s.title}</p>
                             <p className="text-gray-400 text-xs mt-0.5">{s.desc}</p>
                           </div>
-                        </Link>
+                        </L>
                       ))}
                     </div>
                     <div className="mt-4 pt-4 border-t border-white/10 flex items-center justify-between">
                       <p className="text-gray-400 text-xs">Not sure which service you need?</p>
-                      <Link href="/contact" className="flex items-center gap-2 text-accent text-sm font-semibold hover:gap-3 transition-all" onClick={() => setActiveMenu(null)}>
+                      <L href="/contact" className="flex items-center gap-2 text-accent text-sm font-semibold hover:gap-3 transition-all" onClick={() => setActiveMenu(null)}>
                         Get Free Consultation <ArrowRight size={14} />
-                      </Link>
+                      </L>
                     </div>
                   </motion.div>
                 )}
@@ -170,7 +174,7 @@ export default function Navbar() {
                     className="absolute top-full right-0 mt-2 w-64 glass-dark rounded-2xl p-4 shadow-2xl border border-white/10"
                   >
                     {company.map((c) => (
-                      <Link key={c.title} href={c.href}
+                      <L key={c.title} href={c.href}
                         className="flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-all group"
                         onClick={() => setActiveMenu(null)}
                       >
@@ -179,28 +183,28 @@ export default function Navbar() {
                           <p className="text-white text-sm font-semibold group-hover:text-accent transition-colors">{c.title}</p>
                           <p className="text-gray-400 text-xs mt-0.5">{c.desc}</p>
                         </div>
-                      </Link>
+                      </L>
                     ))}
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
 
-            <Link href="/pricing" className="px-4 py-2 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg text-sm font-medium transition-all">Pricing</Link>
-            <Link href="/blog" className="px-4 py-2 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg text-sm font-medium transition-all">Blog</Link>
-            <Link href="/portfolio" className="px-4 py-2 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg text-sm font-medium transition-all">Portfolio</Link>
+            <L href="/pricing" className="px-4 py-2 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg text-sm font-medium transition-all">Pricing</L>
+            <L href="/blog" className="px-4 py-2 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg text-sm font-medium transition-all">Blog</L>
+            <L href="/portfolio" className="px-4 py-2 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg text-sm font-medium transition-all">Portfolio</L>
           </div>
 
           {/* CTA */}
           <div className="hidden lg:flex items-center gap-3">
-            <Link href="tel:+254792837632" className="flex items-center gap-2 text-gray-300 hover:text-white text-sm transition-colors">
+            <L href="tel:+254792837632" className="flex items-center gap-2 text-gray-300 hover:text-white text-sm transition-colors">
               <Phone size={14} /> <span>+254 792 837 632</span>
-            </Link>
-            <Link href="/contact"
+            </L>
+            <L href="/contact"
               className="bg-accent hover:bg-accent-light text-dark font-bold px-5 py-2.5 rounded-xl text-sm transition-all glow-green hover:scale-105 active:scale-95"
             >
               Get Started
-            </Link>
+            </L>
           </div>
 
           {/* Mobile Toggle */}
@@ -218,10 +222,10 @@ export default function Navbar() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed inset-0 z-40 bg-dark-DEFAULT lg:hidden overflow-y-auto"
+            className="fixed inset-0 z-40 bg-[#0d2a1a] lg:hidden overflow-y-auto"
           >
             <div className="pt-24 pb-8 px-6">
-              <Link href="/" onClick={() => setMobileOpen(false)} className="block py-3 text-white font-semibold border-b border-white/10">Home</Link>
+              <L href="/" onClick={() => setMobileOpen(false)} className="block py-3 text-white font-semibold border-b border-white/10">Home</L>
 
               {/* Mobile Services */}
               <div>
@@ -235,32 +239,62 @@ export default function Navbar() {
                   {mobileExpanded === "services" && (
                     <motion.div initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} className="overflow-hidden">
                       {services.map((s) => (
-                        <Link key={s.title} href={s.href} onClick={() => setMobileOpen(false)}
+                        <L key={s.title} href={s.href} onClick={() => setMobileOpen(false)}
                           className="flex items-center gap-3 py-3 pl-4 text-gray-300 hover:text-white border-b border-white/5"
                         >
                           <s.icon size={16} className={s.color} />
                           <span className="text-sm">{s.title}</span>
-                        </Link>
+                        </L>
                       ))}
                     </motion.div>
                   )}
                 </AnimatePresence>
               </div>
 
-              <Link href="/about" onClick={() => setMobileOpen(false)} className="block py-3 text-white font-semibold border-b border-white/10">About</Link>
-              <Link href="/pricing" onClick={() => setMobileOpen(false)} className="block py-3 text-white font-semibold border-b border-white/10">Pricing</Link>
-              <Link href="/blog" onClick={() => setMobileOpen(false)} className="block py-3 text-white font-semibold border-b border-white/10">Blog</Link>
-              <Link href="/contact" onClick={() => setMobileOpen(false)} className="block py-3 text-white font-semibold border-b border-white/10">Contact</Link>
+              {/* ═══ MOBILE COMPANY (expandable menu) ═══ */}
+              <div>
+                <button
+                  onClick={() => setMobileExpanded(mobileExpanded === "company" ? null : "company")}
+                  className="w-full flex items-center justify-between py-3 text-white font-semibold border-b border-white/10"
+                >
+                  Company <ChevronDown size={16} className={`transition-transform ${mobileExpanded === "company" ? "rotate-180" : ""}`} />
+                </button>
+                <AnimatePresence>
+                  {mobileExpanded === "company" && (
+                    <motion.div initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} className="overflow-hidden">
+                      {company.map((c) => (
+                        <L key={c.title} href={c.href} onClick={() => setMobileOpen(false)}
+                          className="flex items-center gap-3 py-3 pl-4 text-gray-300 hover:text-white border-b border-white/5"
+                        >
+                          <c.icon size={16} className="text-primary-light" />
+                          <div>
+                            <span className="text-sm font-medium block">{c.title}</span>
+                            <span className="text-xs text-gray-500">{c.desc}</span>
+                          </div>
+                        </L>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              <L href="/about" onClick={() => setMobileOpen(false)} className="block py-3 text-white font-semibold border-b border-white/10">About</L>
+              <L href="/pricing" onClick={() => setMobileOpen(false)} className="block py-3 text-white font-semibold border-b border-white/10">Pricing</L>
+
+              {/* ═══ BLOG REPLACED WITH PORTFOLIO ═══ */}
+              <L href="/portfolio" onClick={() => setMobileOpen(false)} className="block py-3 text-white font-semibold border-b border-white/10">Portfolio</L>
+
+              <L href="/contact" onClick={() => setMobileOpen(false)} className="block py-3 text-white font-semibold border-b border-white/10">Contact</L>
 
               <div className="mt-8 space-y-4">
                 <div className="flex items-center gap-3 text-gray-300"><Phone size={16} className="text-accent" /><span>+254 707 528 980</span></div>
                 <div className="flex items-center gap-3 text-gray-300"><Phone size={16} className="text-accent" /><span>+254 792 837 632</span></div>
                 <div className="flex items-center gap-3 text-gray-300"><Mail size={16} className="text-accent" /><span>info@solvara.tech</span></div>
-                <Link href="/contact" onClick={() => setMobileOpen(false)}
+                <L href="/contact" onClick={() => setMobileOpen(false)}
                   className="block w-full bg-accent text-dark font-bold py-4 rounded-xl text-center mt-6 text-lg"
                 >
                   Get Started →
-                </Link>
+                </L>
               </div>
             </div>
           </motion.div>

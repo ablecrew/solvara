@@ -665,7 +665,7 @@ export default function PortfolioPage() {
 
             <div className="flex flex-wrap justify-center gap-4">
               {[
-                { value: "350+", label: "Projects Completed", color: "#2ECC71" },
+                { value: "50+", label: "Projects Completed", color: "#2ECC71" },
                 { value: "6", label: "Featured Showcases", color: "#0D518C" },
                 { value: "98%", label: "Client Retention", color: "#2ECC71" },
                 { value: "100%", label: "On-Time Delivery", color: "#0D518C" },
