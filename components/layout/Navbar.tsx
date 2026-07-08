@@ -188,6 +188,7 @@ export default function Navbar() {
 
             <Link href="/pricing" className="px-4 py-2 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg text-sm font-medium transition-all">Pricing</Link>
             <Link href="/blog" className="px-4 py-2 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg text-sm font-medium transition-all">Blog</Link>
+            <Link href="/portfolio" className="px-4 py-2 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg text-sm font-medium transition-all">Portfolio</Link>
           </div>
 
           {/* CTA */}

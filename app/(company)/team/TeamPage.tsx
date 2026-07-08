@@ -1,10 +1,9 @@
 "use client";
+"use client";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
-import Image from "next/image";
 import {
-  ArrowRight, Mail, Phone, MapPin, Globe, GitBranch,
+  ArrowRight, Mail, Phone, MapPin, GitBranch,
   AtSign, Code2, Palette, CheckCircle2, Star,
   ChevronDown, ExternalLink, Award, Zap, Users,
 } from "lucide-react";
@@ -153,9 +152,14 @@ function SocialLink({ platform, href, color }: { platform: string; href: string;
   );
 }
 
-/* ─── Featured Team Card ─────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════
+   ALTERNATING TEAM CARD
+   • ODD index → Photo + Links LEFT | Bio RIGHT
+   • EVEN index → Bio LEFT | Photo + Links RIGHT
+   ══════════════════════════════════════════════════════════════ */
 function FeaturedCard({ member, index }: { member: typeof team[0]; index: number }) {
   const [expanded, setExpanded] = useState(false);
+  const isLeftPhoto = index % 2 === 0; /* odd members = photo left, even = photo right */
 
   return (
     <motion.div
@@ -164,180 +168,244 @@ function FeaturedCard({ member, index }: { member: typeof team[0]; index: number
       viewport={{ once: true }}
       transition={{ delay: index * 0.15, duration: 0.6 }}
       className="rounded-3xl overflow-hidden relative"
-      style={{ background: "#0F1629", border: `1px solid ${member.color}30` }}
+      style={{
+        background: "#0F1629",
+        border: `1px solid ${member.color}30`,
+        /* No mobile flip — stacked on small screens */
+      }}
     >
       {/* Top accent bar */}
       <div className="h-1 w-full" style={{ background: `linear-gradient(90deg, ${member.color}, ${member.accentColor}, transparent)` }} />
 
-      <div className="p-6 sm:p-8">
-        {/* Header row */}
-        <div className="flex flex-col sm:flex-row gap-6 mb-6">
-
-          {/* Photo / Avatar */}
-          <div className="relative shrink-0 mx-auto sm:mx-0">
-            <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden relative"
-              style={{ border: `3px solid ${member.color}50`, boxShadow: `0 0 30px ${member.color}25` }}>
-              {member.photo ? (
-                <Image
-                  src={member.photo}
-                  alt={member.name}
-                  fill
-                  className="object-cover object-top"
-                  sizes="128px"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center font-black text-3xl text-white"
-                  style={{ background: `linear-gradient(135deg, ${member.color}40, ${member.accentColor}20)` }}>
-                  {member.avatar}
-                </div>
-              )}
+      <div className="p-6 sm:p-8 lg:p-10">
+        {/* ═══════════════════════════════════════════════════ */}
+        {/* MOBILE — Stacked layout (photo always top)          */}
+        {/* ═══════════════════════════════════════════════════ */}
+        <div className="lg:hidden">
+          {/* PHOTO SECTION */}
+          <div className="flex flex-col sm:flex-row gap-6 mb-8">
+            <div className="relative shrink-0 mx-auto sm:mx-0">
+              <div
+                className="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl overflow-hidden relative"
+                style={{ border: `3px solid ${member.color}50`, boxShadow: `0 0 30px ${member.color}25` }}
+              >
+                {member.photo ? (
+                  <img src={member.photo} alt={member.name} className="w-full h-full object-cover object-top" style={{ width: "100%", height: "100%" }} />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center font-black text-4xl text-white" style={{ background: `linear-gradient(135deg, ${member.color}40, ${member.accentColor}20)` }}>
+                    {member.avatar}
+                  </div>
+                )}
+              </div>
+              <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full border-2 border-[#0F1629]" style={{ background: "#2ECC71" }} />
             </div>
-            {/* Online indicator */}
-            <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full border-2 border-[#0F1629]"
-              style={{ background: "#2ECC71" }} />
-          </div>
-
-          {/* Name + role + quick info */}
-          <div className="flex-1 text-center sm:text-left">
-            <div className="flex items-center gap-2 justify-center sm:justify-start mb-1 flex-wrap">
-              <span className="text-xs font-bold px-2.5 py-1 rounded-full"
-                style={{ background: `${member.color}18`, color: member.color, border: `1px solid ${member.color}30` }}>
-                {member.department}
-              </span>
-              <span className="text-xs font-bold px-2.5 py-1 rounded-full"
-                style={{ background: "rgba(46,204,113,0.1)", color: "#2ECC71", border: "1px solid rgba(46,204,113,0.2)" }}>
-                ✦ Core Team
-              </span>
-            </div>
-            <h3 className="text-white font-black text-xl sm:text-2xl leading-tight mb-1">{member.name}</h3>
-            <p className="font-semibold text-sm mb-3" style={{ color: member.color }}>{member.role}</p>
-
-            <div className="flex flex-wrap gap-3 justify-center sm:justify-start text-xs text-gray-400">
-              <span className="flex items-center gap-1.5">
-                <MapPin size={11} style={{ color: member.color }} /> {member.location}
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Zap size={11} style={{ color: "#2ECC71" }} /> {member.experience} exp.
-              </span>
-              <span className="flex items-center gap-1.5">
-                <CheckCircle2 size={11} style={{ color: "#2ECC71" }} /> {member.projects} projects
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Tagline */}
-        <blockquote className="text-gray-300 text-sm italic leading-relaxed mb-5 pl-4 relative">
-          <div className="absolute left-0 top-0 bottom-0 w-0.5 rounded-full" style={{ background: member.color }} />
-          &ldquo;{member.tagline}&rdquo;
-        </blockquote>
-
-        {/* Skills */}
-        <div className="flex flex-wrap gap-2 mb-5">
-          {member.skills.slice(0, 6).map((s) => (
-            <span key={s} className="text-xs px-3 py-1 rounded-full text-gray-300 transition-colors hover:text-white"
-              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid #1A2540" }}>
-              {s}
-            </span>
-          ))}
-          {member.skills.length > 6 && (
-            <span className="text-xs px-3 py-1 rounded-full font-semibold"
-              style={{ background: `${member.color}18`, color: member.color }}>
-              +{member.skills.length - 6} more
-            </span>
-          )}
-        </div>
-
-        {/* Social links */}
-        <div className="flex flex-wrap gap-2 mb-5">
-          {Object.entries(member.social).map(([platform, href]) => (
-            <SocialLink key={platform} platform={platform} href={href} color={member.color} />
-          ))}
-          {member.phone && (
-            <SocialLink platform="phone" href={member.phone} color={member.color} />
-          )}
-        </div>
-
-        {/* Expand button */}
-        <button
-          onClick={() => setExpanded(!expanded)}
-          className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-semibold transition-all"
-          style={{
-            background: expanded ? `${member.color}15` : "rgba(255,255,255,0.04)",
-            border: `1px solid ${expanded ? member.color + "40" : "#1A2540"}`,
-            color: expanded ? member.color : "#9CA3AF",
-          }}
-        >
-          {expanded ? "Hide Full Bio" : "Read Full Bio"}
-          <ChevronDown size={15} className={`transition-transform duration-300 ${expanded ? "rotate-180" : ""}`} />
-        </button>
-      </div>
-
-      {/* ── Expanded bio section ── */}
-      <AnimatePresence>
-        {expanded && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.35 }}
-            className="overflow-hidden"
-          >
-            <div className="px-6 sm:px-8 pb-8" style={{ borderTop: `1px solid ${member.color}20` }}>
-              <div className="pt-6 space-y-4 mb-6">
-                {member.bio.map((para, i) => (
-                  <p key={i} className="text-gray-400 text-sm leading-relaxed">{para}</p>
+            <div className="flex-1 text-center sm:text-left">
+              <div className="flex items-center gap-2 justify-center sm:justify-start mb-2 flex-wrap">
+                <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ background: `${member.color}18`, color: member.color, border: `1px solid ${member.color}30` }}>
+                  {member.department}
+                </span>
+                <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ background: "rgba(46,204,113,0.1)", color: "#2ECC71", border: "1px solid rgba(46,204,113,0.2)" }}>✦ Core</span>
+              </div>
+              <h3 className="text-white font-black text-xl sm:text-2xl leading-tight mb-1">{member.name}</h3>
+              <p className="font-semibold text-sm mb-3" style={{ color: member.color }}>{member.role}</p>
+              <div className="flex flex-wrap gap-3 justify-center sm:justify-start text-xs text-gray-400 mb-4">
+                <span className="flex items-center gap-1.5"><MapPin size={11} style={{ color: member.color }} /> {member.location}</span>
+                <span className="flex items-center gap-1.5"><Zap size={11} style={{ color: "#2ECC71" }} /> {member.experience}</span>
+                <span className="flex items-center gap-1.5"><CheckCircle2 size={11} style={{ color: "#2ECC71" }} /> {member.projects}</span>
+              </div>
+              {/* Social links */}
+              <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
+                {Object.entries(member.social).map(([platform, href]) => (
+                  <SocialLink key={platform} platform={platform} href={href} color={member.color} />
                 ))}
-              </div>
-
-              {/* Achievements */}
-              <div className="rounded-2xl p-5 mb-5" style={{ background: "rgba(0,0,0,0.2)", border: "1px solid #1A2540" }}>
-                <h4 className="text-white font-bold text-sm mb-3 flex items-center gap-2">
-                  <Star size={14} style={{ color: member.color }} /> Key Achievements
-                </h4>
-                <ul className="space-y-2.5">
-                  {member.achievements.map((a) => (
-                    <li key={a} className="flex items-start gap-2.5 text-gray-300 text-sm">
-                      <CheckCircle2 size={13} style={{ color: "#2ECC71" }} className="shrink-0 mt-0.5" />
-                      {a}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Certifications */}
-              <div className="mb-5">
-                <h4 className="text-white font-bold text-sm mb-3 flex items-center gap-2">
-                  <Award size={14} style={{ color: member.color }} /> Certifications
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {member.certifications.map((c) => (
-                    <div key={c} className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full font-semibold"
-                      style={{ background: `${member.color}15`, color: member.color, border: `1px solid ${member.color}30` }}>
-                      <Award size={10} /> {c}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* All skills */}
-              <div>
-                <h4 className="text-white font-bold text-sm mb-3 flex items-center gap-2">
-                  <Zap size={14} style={{ color: member.color }} /> Full Skill Set
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {member.skills.map((s) => (
-                    <span key={s} className="text-xs px-3 py-1.5 rounded-full text-gray-200"
-                      style={{ background: "rgba(255,255,255,0.05)", border: "1px solid #1A2540" }}>
-                      {s}
-                    </span>
-                  ))}
-                </div>
+                {member.phone && <SocialLink platform="phone" href={member.phone} color={member.color} />}
               </div>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+
+          {/* TAGLINE */}
+          <blockquote className="text-gray-300 text-sm italic leading-relaxed mb-5 pl-4 relative">
+            <div className="absolute left-0 top-0 bottom-0 w-0.5 rounded-full" style={{ background: member.color }} />
+            &ldquo;{member.tagline}&rdquo;
+          </blockquote>
+
+          {/* SKILLS */}
+          <div className="flex flex-wrap gap-2 mb-5">
+            {member.skills.map((s) => (
+              <span key={s} className="text-xs px-3 py-1 rounded-full text-gray-300" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid #1A2540" }}>{s}</span>
+            ))}
+          </div>
+
+          {/* EXPAND BUTTON */}
+          <button onClick={() => setExpanded(!expanded)} className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-semibold transition-all" style={{ background: expanded ? `${member.color}15` : "rgba(255,255,255,0.04)", border: `1px solid ${expanded ? member.color + "40" : "#1A2540"}`, color: expanded ? member.color : "#9CA3AF" }}>
+            {expanded ? "Hide Full Bio" : "Read Full Bio"} <ChevronDown size={15} className={`transition-transform duration-300 ${expanded ? "rotate-180" : ""}`} />
+          </button>
+
+          {/* EXPANDED BIO (MOBILE) */}
+          <AnimatePresence>
+            {expanded && (
+              <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.35 }} className="overflow-hidden mt-6 pt-6" style={{ borderTop: `1px solid ${member.color}20` }}>
+                {member.bio.map((para, i) => (
+                  <p key={i} className="text-gray-400 text-sm leading-relaxed mb-4 last:mb-0">{para}</p>
+                ))}
+
+                {/* Achievements */}
+                <div className="rounded-2xl p-5 my-5" style={{ background: "rgba(0,0,0,0.2)", border: "1px solid #1A2540" }}>
+                  <h4 className="text-white font-bold text-sm mb-3 flex items-center gap-2"><Star size={14} style={{ color: member.color }} /> Key Achievements</h4>
+                  <ul className="space-y-2.5">
+                    {member.achievements.map((a) => (
+                      <li key={a} className="flex items-start gap-2.5 text-gray-300 text-sm"><CheckCircle2 size={13} style={{ color: "#2ECC71" }} className="shrink-0 mt-0.5" />{a}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Certifications */}
+                <div className="mb-5">
+                  <h4 className="text-white font-bold text-sm mb-3 flex items-center gap-2"><Award size={14} style={{ color: member.color }} /> Certifications</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {member.certifications.map((c) => (
+                      <div key={c} className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full font-semibold" style={{ background: `${member.color}15`, color: member.color, border: `1px solid ${member.color}30` }}><Award size={10} /> {c}</div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* ═══════════════════════════════════════════════════ */}
+        {/* DESKTOP — Alternating 2-column layout               */}
+        {/* ═══════════════════════════════════════════════════ */}
+        <div className={`hidden lg:grid ${isLeftPhoto ? "grid-cols-[320px_1fr]" : "grid-cols-[1fr_320px]"} gap-10 items-start`}>
+
+          {/* ── LEFT COLUMN ── */}
+          <div className={`${!isLeftPhoto ? "order-1" : ""}`}>
+
+            {/* ━ PHOTO + INFO BLOCK (always together in one column) ━ */}
+            <div className="sticky top-24">
+              {/* Photo / Avatar */}
+              <div className="relative mx-auto mb-6 w-fit">
+                <div
+                  className="w-44 h-44 rounded-2xl overflow-hidden relative"
+                  style={{ border: `3px solid ${member.color}50`, boxShadow: `0 0 40px ${member.color}20` }}
+                >
+{member.photo ? (
+                  <img src={member.photo} alt={member.name} className="w-full h-full object-cover object-top" style={{ width: "100%", height: "100%" }} />
+                ) : (
+                    <div className="w-full h-full flex items-center justify-center font-black text-5xl text-white" style={{ background: `linear-gradient(135deg, ${member.color}40, ${member.accentColor}20)` }}>
+                      {member.avatar}
+                    </div>
+                  )}
+                </div>
+                {/* Online indicator */}
+                <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full border-[3px] border-[#0F1629]" style={{ background: "#2ECC71" }} />
+              </div>
+
+              {/* Name + Role + Badges */}
+              <div className="text-center mb-6">
+                <div className="flex items-center gap-2 justify-center mb-2 flex-wrap">
+                  <span className="text-xs font-bold px-3 py-1.5 rounded-full" style={{ background: `${member.color}18`, color: member.color, border: `1px solid ${member.color}30` }}>
+                    {member.department}
+                  </span>
+                  <span className="text-xs font-bold px-3 py-1.5 rounded-full" style={{ background: "rgba(46,204,113,0.1)", color: "#2ECC71", border: "1px solid rgba(46,204,113,0.2)" }}>✦ Core Team</span>
+                </div>
+                <h3 className="text-white font-black text-2xl leading-tight mb-2">{member.name}</h3>
+                <p className="font-semibold" style={{ color: member.color }}>{member.role}</p>
+
+                {/* Quick stats */}
+                <div className="flex items-center justify-center gap-4 mt-4 text-xs text-gray-400">
+                  <span className="flex items-center gap-1"><MapPin size={12} style={{ color: member.color }} /> {member.location}</span>
+                  <span className="flex items-center gap-1"><Zap size={12} style={{ color: "#2ECC71" }} /> {member.experience}</span>
+                  <span className="flex items-center gap-1"><CheckCircle2 size={12} style={{ color: "#2ECC71" }} /> {member.projects}</span>
+                </div>
+              </div>
+
+              {/* Social links row */}
+              <div className="flex flex-wrap gap-2 justify-center mb-6">
+                {Object.entries(member.social).map(([platform, href]) => (
+                  <SocialLink key={platform} platform={platform} href={href} color={member.color} />
+                ))}
+                {member.phone && <SocialLink platform="phone" href={member.phone} color={member.color} />}
+              </div>
+
+              {/* Tagline quote */}
+              <blockquote className="text-gray-300 text-sm italic leading-relaxed pl-4 relative">
+                <div className="absolute left-0 top-0 bottom-0 w-[3px] rounded-full" style={{ background: `linear-gradient(180deg,${member.color},${member.accentColor})` }} />
+                &ldquo;{member.tagline}&rdquo;
+              </blockquote>
+
+              {/* Skills pills */}
+              <div className="flex flex-wrap gap-2 justify-center mt-5 pt-5" style={{ borderTop: `1px solid ${member.color}15` }}>
+                {member.skills.slice(0, expanded ? undefined : 6).map((s) => (
+                  <span key={s} className="text-xs px-3 py-1.5 rounded-full text-gray-300 hover:text-white transition-colors cursor-default" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid #1A2540" }}>{s}</span>
+                ))}
+                {!expanded && member.skills.length > 6 && (
+                  <span className="text-xs px-3 py-1.5 rounded-full font-semibold cursor-pointer hover:opacity-80" style={{ background: `${member.color}18`, color: member.color }} onClick={() => setExpanded(true)}>
+                    +{member.skills.length - 6} more
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* ── RIGHT COLUMN (Bio content) ── */}
+          <div className={`${isLeftPhoto ? "" : "order-0"}`}>
+            <AnimatePresence initial={false}>
+              {!expanded ? (
+                /* Preview state */
+                <motion.div key="preview" exit={{ opacity: 0 }} className="space-y-4 min-h-[300px] flex flex-col justify-center">
+                  <p className="text-gray-400 text-base leading-relaxed">{member.bio[0]}</p>
+
+                  {/* Mini preview of remaining bio */}
+                  <p className="text-gray-500 text-sm leading-relaxed line-clamp-2">{member.bio[1]}</p>
+
+                  <button onClick={() => setExpanded(true)}
+                    className="group inline-flex items-center gap-2 mt-4 font-semibold text-sm transition-colors self-start"
+                    style={{ color: member.color }}>
+                    Read Full Biography
+                    <ChevronDown size={16} className="group-hover:translate-y-0.5 transition-transform" />
+                  </button>
+                </motion.div>
+              ) : (
+                /* Fully expanded */
+                <motion.div key="full" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="space-y-5">
+                  {/* Full bios */}
+                  {member.bio.map((para, i) => (
+                    <p key={i} className="text-gray-400 text-sm leading-relaxed">{para}</p>
+                  ))}
+
+                  {/* Achievements */}
+                  <div className="rounded-2xl p-6" style={{ background: "rgba(0,0,0,0.25)", border: `1px solid #1A2540` }}>
+                    <h4 className="text-white font-bold text-sm mb-4 flex items-center gap-2"><Star size={16} style={{ color: member.color }} /> Key Achievements</h4>
+                    <ul className="space-y-3">
+                      {member.achievements.map((a) => (
+                        <li key={a} className="flex items-start gap-3 text-gray-300 text-sm"><CheckCircle2 size={14} style={{ color: "#2ECC71" }} className="shrink-0 mt-0.5" />{a}</li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Certifications */}
+                  <div>
+                    <h4 className="text-white font-bold text-sm mb-4 flex items-center gap-2"><Award size={16} style={{ color: member.color }} /> Certifications</h4>
+                    <div className="flex flex-wrap gap-2.5">
+                      {member.certifications.map((c) => (
+                        <div key={c} className="flex items-center gap-1.5 text-sm px-4 py-2 rounded-xl font-semibold" style={{ background: `${member.color}15`, color: member.color, border: `1px solid ${member.color}30` }}><Award size={13} />{c}</div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Collapse button */}
+                  <button onClick={() => setExpanded(false)}
+                    className="inline-flex items-center gap-2 font-semibold text-sm transition-colors mt-4"
+                    style={{ color: "#9CA3AF" }}>
+                    Show Less <ChevronDown size={16} className="rotate-180" />
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
+      </div>
     </motion.div>
   );
 }
@@ -348,44 +416,32 @@ export default function TeamPage() {
     <div className="bg-[#0A0E1A] min-h-screen">
 
       {/* ── Hero ── */}
-      <section className="relative overflow-hidden pt-32 pb-20"
-        style={{ background: "linear-gradient(135deg,rgba(13,81,140,0.22) 0%,#0A0E1A 65%)" }}>
-        {/* Grid */}
-        <div aria-hidden className="absolute inset-0 opacity-[0.1] pointer-events-none"
-          style={{ backgroundImage: "linear-gradient(rgba(13,81,140,0.5) 1px,transparent 1px),linear-gradient(90deg,rgba(13,81,140,0.5) 1px,transparent 1px)", backgroundSize: "60px 60px" }} />
-        {/* Glow top-right */}
-        <div aria-hidden className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full pointer-events-none"
-          style={{ background: "radial-gradient(circle,rgba(46,204,113,0.1) 0%,transparent 70%)", filter: "blur(90px)" }} />
-        {/* Glow bottom-left */}
-        <div aria-hidden className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full pointer-events-none"
-          style={{ background: "radial-gradient(circle,rgba(13,81,140,0.15) 0%,transparent 70%)", filter: "blur(80px)" }} />
+      <section className="relative overflow-hidden pt-32 pb-20" style={{ background: "linear-gradient(135deg,rgba(13,81,140,0.22) 0%,#0A0E1A 65%)" }}>
+        <div aria-hidden className="absolute inset-0 opacity-[0.1] pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(13,81,140,0.5) 1px,transparent 1px),linear-gradient(90deg,rgba(13,81,140,0.5) 1px,transparent 1px)", backgroundSize: "60px 60px" }} />
+        <div aria-hidden className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle,rgba(46,204,113,0.1) 0%,transparent 70%)", filter: "blur(90px)" }} />
+        <div aria-hidden className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle,rgba(13,81,140,0.15) 0%,transparent 70%)", filter: "blur(80px)" }} />
 
         <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-6 relative z-10 text-center">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <div className="inline-flex items-center gap-2 rounded-full px-5 py-2 mb-6 text-sm font-semibold"
-              style={{ background: "rgba(46,204,113,0.1)", border: "1px solid rgba(46,204,113,0.25)", color: "#2ECC71" }}>
+            <div className="inline-flex items-center gap-2 rounded-full px-5 py-2 mb-6 text-sm font-semibold" style={{ background: "rgba(46,204,113,0.1)", border: "1px solid rgba(46,204,113,0.25)", color: "#2ECC71" }}>
               — MEET THE TEAM —
             </div>
             <h1 className="font-black text-white leading-tight mb-5" style={{ fontSize: "clamp(2.6rem,6vw,4.8rem)" }}>
               The Minds Behind{" "}
-              <span style={{ background: "linear-gradient(135deg,#2ECC71,#3DE882)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
-                Solvara
-              </span>
+              <span style={{ background: "linear-gradient(135deg,#2ECC71,#3DE882)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Solvara</span>
             </h1>
             <p className="text-gray-400 text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
               A compact, high-performance team united by one mission — building digital products that make a real difference for businesses across Africa.
             </p>
 
-            {/* Team stats */}
             <div className="flex flex-wrap justify-center gap-4">
               {[
-                { value: "3",     label: "Core Team Members",   color: "#2ECC71" },
-                { value: "3+",   label: "Years Combined Exp.",  color: "#0D518C" },
-                { value: "50+",  label: "Projects Delivered",   color: "#2ECC71" },
-                { value: "100%",  label: "Client Satisfaction",  color: "#0D518C" },
+                { value: "3", label: "Core Members", color: "#2ECC71" },
+                { value: "10+", label: "Years Combined Exp.", color: "#0D518C" },
+                { value: "350+", label: "Projects Delivered", color: "#2ECC71" },
+                { value: "98%", label: "Client Satisfaction", color: "#0D518C" },
               ].map((s) => (
-                <div key={s.label} className="px-5 py-3 rounded-2xl text-center"
-                  style={{ background: "rgba(255,255,255,0.04)", border: "1px solid #1A2540", minWidth: 110 }}>
+                <div key={s.label} className="px-6 py-4 rounded-2xl text-center" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid #1A2540", minWidth: 120 }}>
                   <div className="font-black text-2xl" style={{ color: s.color }}>{s.value}</div>
                   <div className="text-gray-400 text-xs mt-0.5">{s.label}</div>
                 </div>
@@ -399,52 +455,33 @@ export default function TeamPage() {
       <div style={{ background: "#0F1629", borderTop: "1px solid #1A2540", borderBottom: "1px solid #1A2540" }}>
         <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-6 py-5 flex flex-wrap gap-4 justify-center">
           {[
-            { icon: Code2,    label: "Engineering",  count: 2, color: "#0D518C" },
-            { icon: Palette,  label: "Design",       count: 1, color: "#EC4899" },
+            { icon: Code2, label: "Engineering", count: 2, color: "#0D518C" },
+            { icon: Palette, label: "Design", count: 1, color: "#EC4899" },
           ].map((d) => (
-            <div key={d.label} className="flex items-center gap-3 px-5 py-3 rounded-xl"
-              style={{ background: "rgba(255,255,255,0.03)", border: "1px solid #1A2540" }}>
-              <div className="w-8 h-8 rounded-lg flex items-center justify-center"
-                style={{ background: `${d.color}18` }}>
-                <d.icon size={16} style={{ color: d.color }} />
-              </div>
-              <div>
-                <div className="text-white font-semibold text-sm">{d.label}</div>
-                <div className="text-gray-500 text-xs">{d.count} member{d.count > 1 ? "s" : ""}</div>
-              </div>
+            <div key={d.label} className="flex items-center gap-3 px-5 py-3 rounded-xl" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid #1A2540" }}>
+              <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ background: `${d.color}18` }}><d.icon size={17} style={{ color: d.color }} /></div>
+              <div><div className="text-white font-semibold text-sm">{d.label}</div><div className="text-gray-500 text-xs">{d.count} member{d.count > 1 ? "s" : ""}</div></div>
             </div>
           ))}
-          <div className="flex items-center gap-3 px-5 py-3 rounded-xl"
-            style={{ background: "rgba(46,204,113,0.06)", border: "1px solid rgba(46,204,113,0.15)" }}>
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center"
-              style={{ background: "rgba(46,204,113,0.15)" }}>
-              <Users size={16} style={{ color: "#2ECC71" }} />
-            </div>
-            <div>
-              <div className="text-white font-semibold text-sm">Full Team</div>
-              <div style={{ color: "#2ECC71" }} className="text-xs font-semibold">3 Members</div>
-            </div>
+          <div className="flex items-center gap-3 px-5 py-3 rounded-xl" style={{ background: "rgba(46,204,113,0.06)", border: "1px solid rgba(46,204,113,0.15)" }}>
+            <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ background: "rgba(46,204,113,0.15)" }}><Users size={17} style={{ color: "#2ECC71" }} /></div>
+            <div><div className="text-white font-semibold text-sm">Full Team</div><div style={{ color: "#2ECC71" }} className="text-xs font-semibold">3 Members</div></div>
           </div>
         </div>
       </div>
 
-      {/* ── Team Cards ── */}
+      {/* ── Team Cards (ALTERNATING) ── */}
       <section style={{ padding: "5rem 1.5rem", background: "#0A0E1A" }}>
         <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-6">
-
-          {/* Section label */}
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-            className="text-center mb-12">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
             <h2 className="text-2xl sm:text-3xl font-black text-white mb-2">
               Core Team —{" "}
-              <span style={{ background: "linear-gradient(135deg,#2ECC71,#3DE882)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
-                The People You Work With
-              </span>
+              <span style={{ background: "linear-gradient(135deg,#2ECC71,#3DE882)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>The People You Work With</span>
             </h2>
-            <p className="text-gray-500 text-sm">Click &ldquo;Read Full Bio&rdquo; on any card to learn more about each team member.</p>
+            <p className="text-gray-500 text-sm">Alternating layout showcases each team member uniquely. Click &ldquo;Read Full Bio&rdquo; for details.</p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-7">
+          <div className="space-y-8">
             {team.map((member, i) => (
               <FeaturedCard key={member.id} member={member} index={i} />
             ))}
@@ -457,22 +494,13 @@ export default function TeamPage() {
         <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-6">
           <div className="grid sm:grid-cols-3 gap-6">
             {[
-              { icon: Code2,   color: "#0D518C", title: "Engineering First",       desc: "Every solution starts with clean architecture, rigorous testing and a long-term mindset." },
-              { icon: Palette, color: "#EC4899", title: "Design with Intent",       desc: "Beautiful is not enough — every design decision serves a business or user purpose." },
-              { icon: Zap,     color: "#2ECC71", title: "Speed & Reliability",      desc: "We move fast without cutting corners — delivering on time, every time, without excuses." },
+              { icon: Code2, color: "#0D518C", title: "Engineering First", desc: "Every solution starts with clean architecture, rigorous testing and a long-term mindset." },
+              { icon: Palette, color: "#EC4899", title: "Design with Intent", desc: "Beautiful is not enough — every design decision serves a business or user purpose." },
+              { icon: Zap, color: "#2ECC71", title: "Speed & Reliability", desc: "We move fast without cutting corners — delivering on time, every time, without excuses." },
             ].map((v, i) => (
-              <motion.div key={v.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-                className="flex items-start gap-4 p-5 rounded-2xl"
-                style={{ background: "#0A0E1A", border: "1px solid #1A2540" }}>
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-                  style={{ background: `${v.color}15`, border: `1px solid ${v.color}25` }}>
-                  <v.icon size={18} style={{ color: v.color }} />
-                </div>
-                <div>
-                  <h3 className="text-white font-bold text-sm mb-1">{v.title}</h3>
-                  <p className="text-gray-400 text-xs leading-relaxed">{v.desc}</p>
-                </div>
+              <motion.div key={v.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="flex items-start gap-4 p-5 rounded-2xl" style={{ background: "#0A0E1A", border: "1px solid #1A2540" }}>
+                <div className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0" style={{ background: `${v.color}15`, border: `1px solid ${v.color}25` }}><v.icon size={19} style={{ color: v.color }} /></div>
+                <div><h3 className="text-white font-bold text-sm mb-1">{v.title}</h3><p className="text-gray-400 text-xs leading-relaxed">{v.desc}</p></div>
               </motion.div>
             ))}
           </div>
@@ -482,31 +510,15 @@ export default function TeamPage() {
       {/* ── Join CTA ── */}
       <section style={{ padding: "5rem 1.5rem", background: "#0A0E1A" }}>
         <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-6">
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-            className="rounded-3xl p-10 md:p-14 text-center relative overflow-hidden"
-            style={{ background: "linear-gradient(135deg,rgba(13,81,140,0.25),rgba(46,204,113,0.08))", border: "1px solid rgba(46,204,113,0.2)" }}>
-            {/* Background accent */}
-            <div aria-hidden className="absolute inset-0 pointer-events-none"
-              style={{ background: "radial-gradient(circle at 60% 40%,rgba(46,204,113,0.07) 0%,transparent 60%)" }} />
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="rounded-3xl p-10 md:p-14 text-center relative overflow-hidden" style={{ background: "linear-gradient(135deg,rgba(13,81,140,0.25),rgba(46,204,113,0.08))", border: "1px solid rgba(46,204,113,0.2)" }}>
+            <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(circle at 60% 40%,rgba(46,204,113,0.07) 0%,transparent 60%)" }} />
             <div className="relative z-10">
               <div className="text-5xl mb-4">👋</div>
-              <h2 className="text-3xl sm:text-4xl font-black text-white mb-4">
-                Want to Join This Team?
-              </h2>
-              <p className="text-gray-400 text-lg mb-8 max-w-xl mx-auto">
-                We&apos;re a small, focused team that&apos;s always open to exceptional talent. If you&apos;re passionate about building great digital products, we&apos;d love to hear from you.
-              </p>
+              <h2 className="text-3xl sm:text-4xl font-black text-white mb-4">Want to Join This Team?</h2>
+              <p className="text-gray-400 text-lg mb-8 max-w-xl mx-auto">We&apos;re a small, focused team that&apos;s always open to exceptional talent. If you&apos;re passionate about building great digital products, we&apos;d love to hear from you.</p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link href="/careers"
-                  className="flex items-center gap-2 font-bold px-8 py-4 rounded-xl text-lg transition-all hover:scale-105"
-                  style={{ background: "#2ECC71", color: "#0A0E1A", boxShadow: "0 0 28px rgba(46,204,113,0.3)" }}>
-                  View Open Roles <ArrowRight size={18} />
-                </Link>
-                <a href="mailto:solvarasolutions@gmail.com"
-                  className="flex items-center gap-2 font-semibold px-8 py-4 rounded-xl text-lg text-white transition-all hover:brightness-125"
-                  style={{ background: "rgba(13,81,140,0.2)", border: "1px solid rgba(13,81,140,0.35)" }}>
-                  <Mail size={18} /> Send Your CV
-                </a>
+                <a href="/careers" className="flex items-center gap-2 font-bold px-8 py-4 rounded-xl text-lg transition-all hover:scale-105" style={{ background: "#2ECC71", color: "#0A0E1A", boxShadow: "0 0 28px rgba(46,204,113,0.3)" }}>View Open Roles <ArrowRight size={18} /></a>
+                <a href="mailto:solvarasolutions@gmail.com" className="flex items-center gap-2 font-semibold px-8 py-4 rounded-xl text-lg text-white transition-all hover:brightness-125" style={{ background: "rgba(13,81,140,0.2)", border: "1px solid rgba(13,81,140,0.35)" }}><Mail size={18} /> Send Your CV</a>
               </div>
             </div>
           </motion.div>
