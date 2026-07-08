@@ -6,6 +6,7 @@ import {
   Menu, X, ChevronDown, Globe, ShoppingCart, User, Building2,
   Hospital, Code2, BarChart3, Phone, Mail, MapPin, ArrowRight,
   Briefcase, BookOpen, Info, MessageSquare, Zap, Shield, TrendingUp,
+  Palette, MousePointer2, Users,
 } from "lucide-react";
 
 const services = [
@@ -15,6 +16,8 @@ const services = [
   { icon: Hospital, title: "Hospital / Clinic Systems", desc: "Appointment, patient records & management", href: "/services#hospital", color: "text-red-400" },
   { icon: Globe, title: "Government / Institutional Sites", desc: "Info portals, document management & more", href: "/services#government", color: "text-yellow-400" },
   { icon: Code2, title: "Custom Web Applications", desc: "Dashboards, SaaS platforms & workflow systems", href: "/services#custom", color: "text-cyan-400" },
+  { icon: Palette, title: "Graphic Design", desc: "Logos, flyers, branding & print materials — from KES 500", href: "/services#graphic", color: "text-pink-400" },
+  { icon: MousePointer2, title: "UI/UX Design", desc: "Wireframes, prototypes & user-tested interfaces", href: "/services#uiux", color: "text-orange-400" },
 ];
 
 const company = [
@@ -22,6 +25,8 @@ const company = [
   { icon: BarChart3, title: "Pricing", desc: "Transparent packages for every budget", href: "/pricing" },
   { icon: BookOpen, title: "Blog", desc: "Insights, tutorials and tech news", href: "/blog" },
   { icon: MessageSquare, title: "Contact", desc: "Let's discuss your project", href: "/contact" },
+  { icon: Users, title: "Our Team",   desc: "Meet the people behind Solvara", href: "/team" },
+  { icon: Briefcase, title: "Careers", desc: "Join our growing team", href: "/careers" },
 ];
 
 const features = [
@@ -77,7 +82,7 @@ export default function Navbar() {
             </div>
             <div>
               <span className="text-white font-black text-xl tracking-tight">SOLVARA</span>
-              <div className="text-accent text-[9px] font-semibold tracking-[0.2em] uppercase -mt-0.5">Technologies</div>
+              <div className="text-accent text-[9px] font-semibold tracking-[0.2em] uppercase -mt-0.5">Solutions</div>
             </div>
           </Link>
 
@@ -103,7 +108,7 @@ export default function Navbar() {
                     transition={{ duration: 0.2 }}
                     onMouseEnter={() => handleMouseEnter("services")}
                     onMouseLeave={handleMouseLeave}
-                    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[680px] glass-dark rounded-2xl p-6 shadow-2xl border border-white/10"
+                    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[820px] glass-dark rounded-2xl p-6 shadow-2xl border border-white/10"
                   >
                     <div className="mb-4 flex items-center justify-between">
                       <div>
@@ -119,7 +124,7 @@ export default function Navbar() {
                         ))}
                       </div>
                     </div>
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-3 gap-2">
                       {services.map((s) => (
                         <Link key={s.title} href={s.href}
                           className="flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-all group"
@@ -187,8 +192,8 @@ export default function Navbar() {
 
           {/* CTA */}
           <div className="hidden lg:flex items-center gap-3">
-            <Link href="tel:+254707528980" className="flex items-center gap-2 text-gray-300 hover:text-white text-sm transition-colors">
-              <Phone size={14} /> <span>+254 707 528 980</span>
+            <Link href="tel:+254792837632" className="flex items-center gap-2 text-gray-300 hover:text-white text-sm transition-colors">
+              <Phone size={14} /> <span>+254 792 837 632</span>
             </Link>
             <Link href="/contact"
               className="bg-accent hover:bg-accent-light text-dark font-bold px-5 py-2.5 rounded-xl text-sm transition-all glow-green hover:scale-105 active:scale-95"

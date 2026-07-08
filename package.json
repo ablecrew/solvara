@@ -2,6 +2,7 @@
   "name": "solvara",
   "version": "0.1.0",
   "private": true,
+  "description": "Solvara Solutions - Modern tech consultancy website",
   "scripts": {
     "dev": "next dev -p 4000",
     "build": "next build",

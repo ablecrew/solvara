@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Solvara Technologies | Solutions That Drive Growth",
+  title: "Solvara Solutions | Solutions That Drive Growth",
   description:
     "We build modern, fast and scalable websites and web applications that help your business stand out, win trust and grow online.",
   keywords: [
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     "e-commerce Kenya",
     "website design Nairobi",
     "M-Pesa integration",
-    "Solvara Technologies",
+    "Solvara Solutions",
   ],
 };
 

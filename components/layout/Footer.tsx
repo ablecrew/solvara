@@ -19,7 +19,7 @@ const footerLinks = {
     { label: "Our Team", href: "/about#team" },
     { label: "Pricing", href: "/pricing" },
     { label: "Blog", href: "/blog" },
-    { label: "Careers", href: "/about#careers" },
+    { label: "Careers", href: "/careers" },
     { label: "Contact", href: "/contact" },
   ],
   Legal: [
@@ -81,7 +81,7 @@ export default function Footer() {
               </div>
               <div>
                 <span className="text-white font-black text-xl tracking-tight">SOLVARA</span>
-                <div className="text-accent text-[9px] font-semibold tracking-[0.2em] uppercase -mt-0.5">Technologies</div>
+                <div className="text-accent text-[9px] font-semibold tracking-[0.2em] uppercase -mt-0.5">Solutions</div>
               </div>
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed mb-6">
@@ -89,17 +89,15 @@ export default function Footer() {
             </p>
             <div className="space-y-3 mb-6">
               <a href="tel:+254707528980" className="flex items-center gap-3 text-gray-400 hover:text-accent transition-colors text-sm">
-                <Phone size={15} className="text-accent" /> +254 707 528 980
+                <Phone size={15} className="text-accent" /> +254 113 982 018
               </a>
               <a href="tel:+254792837632" className="flex items-center gap-3 text-gray-400 hover:text-accent transition-colors text-sm">
                 <Phone size={15} className="text-accent" /> +254 792 837 632
               </a>
-              <a href="mailto:info@solvara.tech" className="flex items-center gap-3 text-gray-400 hover:text-accent transition-colors text-sm">
-                <Mail size={15} className="text-accent" /> info@solvara.tech
+              <a href="mailto:info@solvara.solutions" className="flex items-center gap-3 text-gray-400 hover:text-accent transition-colors text-sm">
+                <Mail size={15} className="text-accent" /> info@solvara.solutions
               </a>
-              <a href="https://solvara.tech" className="flex items-center gap-3 text-gray-400 hover:text-accent transition-colors text-sm">
-                <Globe size={15} className="text-accent" /> https://solvara.vercel.app
-              </a>
+
               <div className="flex items-center gap-3 text-gray-400 text-sm">
                 <MapPin size={15} className="text-accent flex-shrink-0" /> Nairobi, Kenya
               </div>
@@ -164,7 +162,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-dark-border pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-gray-500 text-sm">© {new Date().getFullYear()} Solvara Technologies. All rights reserved.</p>
+          <p className="text-gray-500 text-sm">© {new Date().getFullYear()} Solvara Solutions. All rights reserved.</p>
           <p className="text-gray-500 text-sm">Solutions That Drive Growth 🚀</p>
         </div>
       </div>
