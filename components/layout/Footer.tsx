@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Phone, Mail, Globe, MapPin, ArrowRight, Send } from "lucide-react";
@@ -25,7 +26,7 @@ const footerLinks = {
   Legal: [
     { label: "Privacy Policy", href: "/privacy" },
     { label: "Terms of Service", href: "/terms" },
-    { label: "Cookie Policy", href: "/cookies" },
+    { label: "Cookie Policy", href: "/cookie" },
     { label: "SLA Agreement", href: "/sla" },
   ],
 };
@@ -75,14 +76,14 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                <span className="text-white font-black text-lg">S</span>
-              </div>
-              <div>
-                <span className="text-white font-black text-xl tracking-tight">SOLVARA</span>
-                <div className="text-accent text-[9px] font-semibold tracking-[0.2em] uppercase -mt-0.5">Solutions</div>
-              </div>
+            <Link href="/" className="inline-flex items-center mb-4 group">
+              <Image
+                src="/images/solvara-logo.png"
+                alt="Solvara Solutions Logo"
+                width={180}
+                height={50}
+                className="h-12 w-auto transition-transform duration-300 group-hover:scale-105"
+              />
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed mb-6">
               We build modern, fast and scalable websites and web applications that help your business stand out, win trust and grow online. Your vision, our expertise. Real results.

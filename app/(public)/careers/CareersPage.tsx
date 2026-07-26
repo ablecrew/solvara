@@ -349,7 +349,7 @@ export default function CareersPage() {
           <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
             className="grid grid-cols-2 gap-4">
             {[
-              { label: "Team Members",     value: "8",    color: "#2ECC71" },
+              { label: "Team Members",     value: "5",    color: "#2ECC71" },
               { label: "Avg Tenure",        value: "2.4yr", color: "#0D518C" },
               { label: "Projects/Month",    value: "12+",  color: "#2ECC71" },
               { label: "Client Rating",     value: "4.9★", color: "#0D518C" },
@@ -401,7 +401,7 @@ export default function CareersPage() {
               style={{ background: "#2ECC71", color: "#0A0E1A", boxShadow: "0 0 24px rgba(46,204,113,0.3)" }}>
               Email Your CV <ArrowRight size={18} />
             </a>
-            <p className="text-gray-500 text-sm mt-4">careers@solvara.tech</p>
+            <p className="text-gray-500 text-sm mt-4">careers@solvara.solutions</p>
           </motion.div>
         </div>
       </section>

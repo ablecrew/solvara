@@ -9,6 +9,7 @@ import {
   Smartphone, Server, CreditCard, BarChart3,
   MessageSquare, ChevronDown,
 } from "lucide-react";
+import Link from "next/link";
 
 /* ════════════════════════════════════════════════════════════
    PORTFOLIO — ALL PROJECTS
@@ -18,6 +19,7 @@ type Category = "all" | "web" | "ecommerce" | "system" | "creative" | "design";
 
 interface Project {
   id: number;
+  slug: string;
   title: string;
   subtitle: string;
   description: string[];
@@ -37,9 +39,17 @@ interface Project {
   location?: string;
 }
 
+/* ════════════════════════════════════════════════════════════
+   UTILITY ICONS
+   ════════════════════════════════════════════════════════════ */
+
+function CalendarIcon(props: any) { return <BarChart3 {...props} size={16} />; }
+function TrendUpIcon(props: any) { return <Zap {...props} size={16} />; }
+
 const projects: Project[] = [
   {
     id: 1,
+    slug: "medicore",
     title: "MediCore",
     subtitle: "Health Care Management System",
     description: [
@@ -82,6 +92,7 @@ const projects: Project[] = [
   },
   {
     id: 2,
+    slug: "edusync",
     title: "EduSync",
     subtitle: "School Management System with AI Support",
     description: [
@@ -124,6 +135,7 @@ const projects: Project[] = [
   },
   {
     id: 3,
+    slug: "eventify",
     title: "Eventify",
     subtitle: "Event Ticketing & Sales Platform",
     description: [
@@ -160,6 +172,7 @@ const projects: Project[] = [
   },
   {
     id: 4,
+    slug: "watalii-podcast",
     title: "Watalii Podcast",
     subtitle: "Podcast Platform with Merchandising & Digital Skills Marketplace",
     description: [
@@ -196,6 +209,7 @@ const projects: Project[] = [
   },
   {
     id: 5,
+    slug: "mcaol-portfolio",
     title: "MCAol Book",
     subtitle: "MC & Comedian Personal Website + Booking Dashboard",
     description: [
@@ -204,7 +218,7 @@ const projects: Project[] = [
     ],
     longDescription:
       "MCAol Book is more than just a portfolio — it is a business-in-a-box for entertainers. The public-facing website showcases video clips, photo galleries, event history, client testimonials, pricing packages, availability calendar, and reputation section. The private dashboard allows the MC to manage incoming booking requests, confirm/reject dates, send quotes, process deposits via M-Pesa, track income, upload new media, send automated emails to clients, and generate invoices.",
-    url: "https://mcaol-book-mc.vercel.app",
+    url: "https://mcaol-book-mac.vercel.app",
     category: ["web", "creative"],
     color: "#EC4899",
     accentColor: "#F472B6",
@@ -238,6 +252,7 @@ const projects: Project[] = [
   },
   {
     id: 6,
+    slug: "onpoint-cyber",
     title: "OnPoint Cyber",
     subtitle: "Modern Cyber Cafe & Government Services Platform",
     description: [
@@ -353,12 +368,6 @@ const designWorks: DesignWork[] = [
   },
 ];
 
-/* ════════════════════════════════════════════════════════════
-   UTILITY ICONS
-   ════════════════════════════════════════════════════════════ */
-
-function CalendarIcon(props: any) { return <BarChart3 {...props} size={16} />; }
-function TrendUpIcon(props: any) { return <Zap {...props} size={16} />; }
 
 /* ════════════════════════════════════════════════════════════
    CATEGORY CONFIG
@@ -451,7 +460,17 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               style={{ background: project.color, color: "#fff" }}>
               View Live Site <ExternalLink size={14} className="group-hover:translate-x-0.5 transition-transform" />
             </a>
-            <button onClick={() => setExpanded(!expanded)} className="px-4 py-3 rounded-xl text-sm font-semibold transition-all" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid #1A2540", color: "#9CA3AF" }}>
+
+            {/* ✅ ADD THIS */}
+            <Link href={`/portfolio/${project.slug}`}
+              className="px-4 py-3 rounded-xl text-sm font-semibold transition-all hover:text-white flex items-center gap-1.5"
+              style={{ background: "rgba(255,255,255,0.05)", border: "1px solid #1A2540", color: "#9CA3AF" }}>
+              <ArrowRight size={14} /> Case Study
+            </Link>
+
+            <button onClick={() => setExpanded(!expanded)}
+              className="px-4 py-3 rounded-xl text-sm font-semibold transition-all"
+              style={{ background: "rgba(255,255,255,0.05)", border: "1px solid #1A2540", color: "#9CA3AF" }}>
               {expanded ? "Less" : "Details"}
             </button>
           </div>
@@ -501,13 +520,22 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 {project.client && <span>Client: <b className="text-gray-300 truncate max-w-[140px] inline-block align-bottom">{project.client}</b></span>}
               </div>
 
-              <a href={project.url} target="_blank" rel="noopener noreferrer"
-                className="group flex items-center gap-2 w-full justify-center font-bold px-6 py-3.5 rounded-xl text-sm transition-all hover:scale-[1.02]"
-                style={{ background: project.color, color: "#fff", boxShadow: `0 8px 28px ${project.color}30` }}>
-                <ExternalLink size={16} />
-                Visit Live Site — {project.url.replace("https://", "").split("/")[0]}
-                <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform ml-auto" />
-              </a>
+              {/* ✅ REPLACE the single <a> with this */}
+              <div className="flex flex-col gap-2">
+                <Link href={`/portfolio/${project.slug}`}
+                  className="group flex items-center gap-2 w-full justify-center font-bold px-6 py-3.5 rounded-xl text-sm transition-all hover:scale-[1.02]"
+                  style={{ background: project.color, color: "#fff", boxShadow: `0 8px 28px ${project.color}30` }}>
+                  View Case Study
+                  <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform ml-auto" />
+                </Link>
+
+                <a href={project.url} target="_blank" rel="noopener noreferrer"
+                  className="group flex items-center gap-2 w-full justify-center font-semibold px-6 py-3 rounded-xl text-sm transition-all hover:brightness-125"
+                  style={{ background: "rgba(255,255,255,0.05)", border: "1px solid #1A2540", color: "#9CA3AF" }}>
+                  <ExternalLink size={14} />
+                  Visit Live Site
+                </a>
+              </div>
 
               <div className="pt-4" style={{ borderTop: `1px solid ${project.color}10` }}>
                 <h4 className="text-white font-bold text-xs uppercase tracking-wider mb-3">Key Features</h4>
@@ -665,7 +693,7 @@ export default function PortfolioPage() {
 
             <div className="flex flex-wrap justify-center gap-4">
               {[
-                { value: "50+", label: "Projects Completed", color: "#2ECC71" },
+                { value: "350+", label: "Projects Completed", color: "#2ECC71" },
                 { value: "6", label: "Featured Showcases", color: "#0D518C" },
                 { value: "98%", label: "Client Retention", color: "#2ECC71" },
                 { value: "100%", label: "On-Time Delivery", color: "#0D518C" },
@@ -773,7 +801,7 @@ export default function PortfolioPage() {
                 From hospital systems to e-commerce platforms, from brand identities to UI/UX overhauls — we have delivered results across industries.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="#contact"
+                <a href="/contact"
                   className="group flex items-center gap-2 font-bold px-8 py-4 rounded-xl text-lg transition-all hover:scale-105"
                   style={{ background: "#2ECC71", color: "#0A0E1A", boxShadow: "0 0 28px rgba(46,204,113,0.3)" }}>
                   Start Your Project <ArrowRight size={18} />

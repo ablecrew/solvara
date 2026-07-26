@@ -340,13 +340,13 @@ export default function StatsAndCTA() {
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-gray-400 text-sm">
               <a href="tel:+254707528980" className="hover:text-[#2ECC71] transition-colors">
-                📞 +254 707 528 980
+                📞 +254 113 982 018
               </a>
               <a href="tel:+254792837632" className="hover:text-[#2ECC71] transition-colors">
                 📞 +254 792 837 632
               </a>
               <a href="https://solvara.vercel.app" className="hover:text-[#2ECC71] transition-colors">
-                🌐 solvara.vercel.app
+                🌐 solvarasolutions.vercel.app
               </a>
             </div>
           </motion.div>

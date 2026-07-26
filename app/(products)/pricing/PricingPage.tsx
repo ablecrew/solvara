@@ -44,12 +44,12 @@ const categories = [
         features: ["Up to 50 products", "M-Pesa integration", "Basic cart", "Order management", "3 months support"],
       },
       {
-        name: "STANDARD", price: "KES 64,000", priceTo: "120,000",
+        name: "STANDARD", price: "KES 64,000", priceTo: "100,000",
         features: ["Up to 500 products", "M-Pesa + Cards", "Advanced cart", "Inventory system", "Customer accounts", "6 months support"],
         highlight: true,
       },
       {
-        name: "ADVANCED", price: "KES 120,000", priceTo: "240,000+",
+        name: "ADVANCED", price: "KES 100,000", priceTo: "150,000+",
         features: ["Unlimited products", "All payment methods", "Multi-currency", "Analytics dashboard", "API integrations", "1 year support", "Priority support"],
       },
     ],
@@ -86,11 +86,11 @@ const categories = [
     popular: false,
     tiers: [
       {
-        name: "BASIC", price: "KES 64,000", priceTo: "120,000",
+        name: "BASIC", price: "KES 40,000", priceTo: "100,000",
         features: ["Appointment booking", "Patient records", "Basic admin panel", "Reports", "3 months support"],
       },
       {
-        name: "ADVANCED", price: "KES 120,000", priceTo: "240,000+",
+        name: "ADVANCED", price: "KES 100,000", priceTo: "150,000+",
         features: ["Full HMS", "Multi-doctor support", "Billing system", "Prescription management", "Multi-branch", "1 year support", "Staff training"],
         highlight: true,
       },
@@ -111,7 +111,7 @@ const categories = [
         features: ["Public info portal", "Announcements", "Document downloads", "Contact forms", "3 months support"],
       },
       {
-        name: "ADVANCED", price: "KES 80,000", priceTo: "200,000",
+        name: "ADVANCED", price: "KES 80,000", priceTo: "150,000+",
         features: ["Full citizen portal", "Document management", "Multi-language", "Accessibility (WCAG)", "Secure architecture", "1 year support"],
         highlight: true,
       },
@@ -128,11 +128,11 @@ const categories = [
     popular: false,
     tiers: [
       {
-        name: "MVP", price: "KES 80,000", priceTo: "200,000",
+        name: "MVP", price: "KES 60,000", priceTo: "100,000",
         features: ["Core features only", "REST API", "Basic dashboard", "1 integration", "3 months support"],
       },
       {
-        name: "FULL SAAS", price: "KES 200,000", priceTo: "480,000+",
+        name: "FULL SAAS", price: "KES 100,000", priceTo: "150,000+",
         features: ["Full platform", "Multi-tenant", "Advanced APIs", "Unlimited integrations", "Real-time features", "Cloud deployment", "1 year support", "SLA agreement"],
         highlight: true,
       },

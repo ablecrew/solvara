@@ -71,7 +71,7 @@ function Particles() {
 const HEADLINES = ["Real Results.", "Digital Growth.", "Powerful Websites."];
 
 const STATS = [
-  { value: "200+", label: "Projects Delivered" },
+  { value: "50+", label: "Projects Delivered" },
   { value: "98%",  label: "Client Satisfaction" },
   { value: "5★",   label: "Average Rating" },
   { value: "24/7", label: "Support Available" },
@@ -252,7 +252,7 @@ export default function Hero() {
             transition={{ delay: 0.32 }}
             className="text-gray-400 text-lg leading-relaxed mb-8 max-w-xl"
           >
-            We build modern, fast and scalable websites and web applications that help
+            We build modern, fast and scalable websites, mobile and web applications that help
             your business stand out, win trust and grow online.
           </motion.p>
 
@@ -337,7 +337,7 @@ export default function Hero() {
                   className="flex-1 rounded-md px-3 py-1 text-center text-xs text-gray-400"
                   style={{ background: "rgba(255,255,255,0.05)" }}
                 >
-                  solvara.tech
+                  solvara.com
                 </div>
               </div>
 
@@ -349,7 +349,7 @@ export default function Hero() {
                 <div className="text-2xl font-black text-white mb-1">Digital Solutions</div>
                 <div className="font-bold text-lg mb-3" style={{ color: "#2ECC71" }}>That Drive Growth</div>
                 <div className="text-gray-400 text-sm mb-5 leading-relaxed">
-                  We build modern web experiences that move your business forward.
+                  We build modern web & mobile experiences that move your business forward.
                 </div>
                 <div
                   className="inline-block font-bold px-5 py-2.5 rounded-lg text-sm mb-6"

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import {
   ArrowRight, Search, Clock, Tag, TrendingUp,
-  BookOpen, Eye, Heart, Share2, ChevronRight,
+  BookOpen, Eye, Heart, ChevronRight,
 } from "lucide-react";
 
 /* ─── Data ───────────────────────────────────────────────────── */
@@ -26,7 +26,6 @@ const posts = [
     readTime: "8 min read",
     views: "4.2k",
     likes: 142,
-    image: null,
     gradient: "linear-gradient(135deg, rgba(13,81,140,0.4), rgba(46,204,113,0.2))",
     featured: true,
   },
@@ -45,7 +44,6 @@ const posts = [
     readTime: "6 min read",
     views: "3.8k",
     likes: 98,
-    image: null,
     gradient: "linear-gradient(135deg, rgba(26,107,181,0.4), rgba(13,81,140,0.2))",
     featured: false,
   },
@@ -64,7 +62,6 @@ const posts = [
     readTime: "5 min read",
     views: "2.9k",
     likes: 76,
-    image: null,
     gradient: "linear-gradient(135deg, rgba(46,204,113,0.3), rgba(13,81,140,0.15))",
     featured: false,
   },
@@ -83,7 +80,6 @@ const posts = [
     readTime: "7 min read",
     views: "1.8k",
     likes: 54,
-    image: null,
     gradient: "linear-gradient(135deg, rgba(231,76,60,0.25), rgba(13,81,140,0.2))",
     featured: false,
   },
@@ -102,7 +98,6 @@ const posts = [
     readTime: "4 min read",
     views: "2.1k",
     likes: 89,
-    image: null,
     gradient: "linear-gradient(135deg, rgba(155,89,182,0.3), rgba(13,81,140,0.15))",
     featured: false,
   },
@@ -121,7 +116,6 @@ const posts = [
     readTime: "9 min read",
     views: "3.2k",
     likes: 112,
-    image: null,
     gradient: "linear-gradient(135deg, rgba(46,204,113,0.25), rgba(243,156,18,0.15))",
     featured: false,
   },
@@ -140,7 +134,6 @@ const posts = [
     readTime: "5 min read",
     views: "1.5k",
     likes: 43,
-    image: null,
     gradient: "linear-gradient(135deg, rgba(243,156,18,0.25), rgba(13,81,140,0.2))",
     featured: false,
   },
@@ -159,7 +152,6 @@ const posts = [
     readTime: "6 min read",
     views: "2.7k",
     likes: 95,
-    image: null,
     gradient: "linear-gradient(135deg, rgba(0,188,212,0.25), rgba(13,81,140,0.2))",
     featured: false,
   },
@@ -180,16 +172,28 @@ function PostCard({ post, index, featured = false }: {
       className={`group rounded-2xl overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-1 ${featured ? "md:col-span-2" : ""}`}
       style={{ background: "#0F1629", border: "1px solid #1A2540", boxShadow: "0 4px 24px rgba(0,0,0,0.2)" }}
     >
-      {/* Image / gradient placeholder */}
-      <div
-        className="relative overflow-hidden"
-        style={{ height: featured ? 280 : 180, background: post.gradient }}
-      >
-        <div className="absolute inset-0 flex items-center justify-center opacity-20">
+      {/* ── Clickable gradient header → goes to article ── */}
+      <Link href={`/blog/${post.slug}`} className="block relative overflow-hidden"
+        style={{ height: featured ? 280 : 180, background: post.gradient }}>
+        {/* Book icon watermark */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
           <BookOpen size={featured ? 80 : 60} className="text-white" />
         </div>
-        {/* Overlays */}
-        <div className="absolute top-4 left-4 flex gap-2">
+
+        {/* Hover overlay */}
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          style={{ background: "rgba(10,14,26,0.35)" }} />
+
+        {/* "Read Article" label on hover */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+          <span className="flex items-center gap-2 font-bold text-sm px-5 py-2.5 rounded-xl"
+            style={{ background: "#2ECC71", color: "#0A0E1A" }}>
+            Read Article <ArrowRight size={14} />
+          </span>
+        </div>
+
+        {/* Category + tag badges */}
+        <div className="absolute top-4 left-4 flex gap-2 z-10">
           <span className="text-xs font-bold px-3 py-1 rounded-full"
             style={{ background: "rgba(10,14,26,0.8)", color: "#2ECC71", border: "1px solid rgba(46,204,113,0.3)" }}>
             {post.category}
@@ -201,20 +205,28 @@ function PostCard({ post, index, featured = false }: {
             </span>
           )}
         </div>
-        <div className="absolute bottom-4 right-4 flex items-center gap-3 text-white/70 text-xs">
+
+        {/* Views + likes */}
+        <div className="absolute bottom-4 right-4 flex items-center gap-3 text-white/70 text-xs z-10">
           <span className="flex items-center gap-1"><Eye size={12} /> {post.views}</span>
           <span className="flex items-center gap-1"><Heart size={12} /> {post.likes}</span>
         </div>
-      </div>
+      </Link>
 
-      {/* Content */}
+      {/* ── Card body ── */}
       <div className="p-6 flex flex-col flex-1">
-        <h2 className={`text-white font-black mb-3 leading-snug group-hover:text-[#2ECC71] transition-colors ${featured ? "text-xl sm:text-2xl" : "text-lg"}`}>
-          {post.title}
-        </h2>
+        {/* Title → links to article */}
+        <Link href={`/blog/${post.slug}`} className="block mb-3">
+          <h2 className={`text-white font-black leading-snug group-hover:text-[#2ECC71] transition-colors ${featured ? "text-xl sm:text-2xl" : "text-lg"}`}>
+            {post.title}
+          </h2>
+        </Link>
+
         <p className="text-gray-400 text-sm leading-relaxed mb-4 flex-1">{post.excerpt}</p>
 
+        {/* Footer row */}
         <div className="flex items-center justify-between pt-4" style={{ borderTop: "1px solid #1A2540" }}>
+          {/* Author */}
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-black"
               style={{ background: post.avatarColor }}>
@@ -225,11 +237,17 @@ function PostCard({ post, index, featured = false }: {
               <div className="text-gray-500 text-xs">{post.date}</div>
             </div>
           </div>
+
+          {/* Read time + CTA */}
           <div className="flex items-center gap-3 text-gray-500 text-xs">
-            <span className="flex items-center gap-1"><Clock size={11} /> {post.readTime}</span>
-            <Link href={`/blog/${post.slug}`}
-              className="flex items-center gap-1 font-semibold transition-colors hover:text-[#2ECC71]"
-              style={{ color: "#2ECC71" }}>
+            <span className="flex items-center gap-1">
+              <Clock size={11} /> {post.readTime}
+            </span>
+            <Link
+              href={`/blog/${post.slug}`}
+              className="flex items-center gap-1 font-bold transition-all hover:gap-2"
+              style={{ color: "#2ECC71" }}
+            >
               Read <ArrowRight size={12} />
             </Link>
           </div>
@@ -245,14 +263,14 @@ export default function BlogPage() {
   const [search, setSearch] = useState("");
 
   const filtered = posts.filter((p) => {
-    const matchCat = activeCategory === "All" || p.category === activeCategory;
+    const matchCat    = activeCategory === "All" || p.category === activeCategory;
     const matchSearch = p.title.toLowerCase().includes(search.toLowerCase()) ||
       p.excerpt.toLowerCase().includes(search.toLowerCase());
     return matchCat && matchSearch;
   });
 
   const featured = filtered.find((p) => p.featured);
-  const rest = filtered.filter((p) => !p.featured);
+  const rest     = filtered.filter((p) => !p.featured);
 
   return (
     <div className="bg-[#0A0E1A] min-h-screen">
@@ -341,13 +359,15 @@ export default function BlogPage() {
                 </div>
                 <div className="space-y-4">
                   {trending.map((p, i) => (
-                    <Link key={p.id} href={`/blog/${p.slug}`}
-                      className="flex gap-3 group">
-                      <div className="text-2xl font-black shrink-0 w-8" style={{ color: i === 0 ? "#2ECC71" : "#1A2540" }}>
+                    <Link key={p.id} href={`/blog/${p.slug}`} className="flex gap-3 group">
+                      <div className="text-2xl font-black shrink-0 w-8"
+                        style={{ color: i === 0 ? "#2ECC71" : "#1A2540" }}>
                         {String(i + 1).padStart(2, "0")}
                       </div>
                       <div>
-                        <p className="text-gray-300 text-sm leading-snug group-hover:text-white transition-colors line-clamp-2">{p.title}</p>
+                        <p className="text-gray-300 text-sm leading-snug group-hover:text-white transition-colors line-clamp-2">
+                          {p.title}
+                        </p>
                         <p className="text-gray-600 text-xs mt-1 flex items-center gap-2">
                           <Clock size={10} /> {p.readTime}
                         </p>

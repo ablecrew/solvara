@@ -20,8 +20,8 @@ const packages = [
     title: "E-Commerce",
     tiers: [
       { name: "STARTER", price: "KES 32,000 – 64,000", color: "bg-primary/20 text-blue-300 border-primary/30" },
-      { name: "STANDARD", price: "KES 64,000 – 120,000", color: "bg-white/10 text-gray-300 border-white/20" },
-      { name: "ADVANCED", price: "KES 120,000 – 240,000+", color: "bg-accent/20 text-accent border-accent/30" },
+      { name: "STANDARD", price: "KES 64,000 – 100,000", color: "bg-white/10 text-gray-300 border-white/20" },
+      { name: "ADVANCED", price: "KES 100,000 – 150,000+", color: "bg-accent/20 text-accent border-accent/30" },
     ],
     features: ["M-Pesa integration", "Card payments", "Admin dashboard", "Inventory system", "Order management", "Product catalog"],
     popular: false,
@@ -40,8 +40,8 @@ const packages = [
     icon: Hospital,
     title: "Hospital / Clinic",
     tiers: [
-      { name: "BASIC", price: "KES 64,000 – 120,000", color: "bg-primary/20 text-blue-300 border-primary/30" },
-      { name: "ADVANCED", price: "KES 120,000 – 240,000+", color: "bg-accent/20 text-accent border-accent/30" },
+      { name: "BASIC", price: "KES 40,000 – 100,000", color: "bg-primary/20 text-blue-300 border-primary/30" },
+      { name: "ADVANCED", price: "KES 100,000 – 150,000+", color: "bg-accent/20 text-accent border-accent/30" },
     ],
     features: ["Appointment booking", "Patient records", "Admin panel", "Secure data", "Reports & analytics", "Multi-doctor support"],
     popular: false,
@@ -51,7 +51,7 @@ const packages = [
     title: "Government / Institutional",
     tiers: [
       { name: "BASIC", price: "KES 40,000 – 80,000", color: "bg-primary/20 text-blue-300 border-primary/30" },
-      { name: "ADVANCED", price: "KES 80,000 – 200,000", color: "bg-accent/20 text-accent border-accent/30" },
+      { name: "ADVANCED", price: "KES 80,000 – 150,000", color: "bg-accent/20 text-accent border-accent/30" },
     ],
     features: ["Document management", "Announcement system", "Public portal", "High security", "Multi-language", "Compliance ready"],
     popular: false,
@@ -60,8 +60,8 @@ const packages = [
     icon: Code2,
     title: "Custom Web Applications",
     tiers: [
-      { name: "MVP", price: "KES 80,000 – 200,000", color: "bg-primary/20 text-blue-300 border-primary/30" },
-      { name: "FULL SAAS", price: "KES 200,000 – 480,000+", color: "bg-accent/20 text-accent border-accent/30" },
+      { name: "MVP", price: "KES 60,000 – 100,000", color: "bg-primary/20 text-blue-300 border-primary/30" },
+      { name: "FULL SAAS", price: "KES 100,000 – 150,000+", color: "bg-accent/20 text-accent border-accent/30" },
     ],
     features: ["Custom architecture", "SaaS platform", "API integration", "Scalable design", "Analytics dashboard", "Cloud deployment"],
     popular: false,

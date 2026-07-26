@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import {
   Phone, Mail, Globe, MapPin, Send, CheckCircle2,
@@ -11,18 +12,18 @@ const contactMethods = [
   {
     icon: Phone,
     label: "Call Us",
-    value: "+254 113 982 018",
-    subValue: "+254 792 837 632",
-    href: "tel:+254 792837632",
+    value: "+254 792 837 632",
+    subValue: "+254 113 982 018",
+    href: "tel:+254792837632",
     color: "#2ECC71",
     desc: "Mon – Fri, 9am – 5pm EAT",
   },
   {
     icon: Mail,
     label: "Email Us",
-    value: "info@solvara.solution",
-    subValue: "support@solvara.solution",
-    href: "mailto:info@solvara.solution",
+    value: "info@solvara.tech",
+    subValue: "support@solvara.tech",
+    href: "mailto:info@solvara.tech",
     color: "#0D518C",
     desc: "We reply within 2 hours",
   },
@@ -55,8 +56,6 @@ const services = [
   "Custom Web Application",
   "Website Redesign",
   "SEO & Performance",
-  "Graphic Designing",
-  "UI/UX Designing",
   "Other",
 ];
 
@@ -96,6 +95,7 @@ type FormData = {
 
 /* ─── Page ───────────────────────────────────────────────────── */
 export default function ContactPage() {
+  const router = useRouter();
   const [form, setForm] = useState<FormData>({
     name: "", email: "", phone: "", company: "",
     service: "", budget: "", timeline: "", message: "",
@@ -108,12 +108,26 @@ export default function ContactPage() {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
   };
 
+  const [error, setError] = useState("");
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1500));
-    setLoading(false);
-    setSubmitted(true);
+    setError("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Something went wrong.");
+      router.push("/thank-you");
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Failed to send. Please try WhatsApp instead.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const inputClass = "w-full px-4 py-3.5 rounded-xl text-white text-sm placeholder-gray-500 outline-none transition-all";
@@ -281,6 +295,13 @@ export default function ContactPage() {
                       onBlur={(e) => (e.target.style.borderColor = "#1A2540")} />
                   </div>
 
+                  {error && (
+                    <div className="flex items-start gap-3 px-4 py-3 rounded-xl text-sm"
+                      style={{ background: "rgba(231,76,60,0.1)", border: "1px solid rgba(231,76,60,0.3)", color: "#f87171" }}>
+                      ⚠️ {error}
+                    </div>
+                  )}
+
                   <button type="submit" disabled={loading}
                     className="w-full flex items-center justify-center gap-3 font-black py-4 rounded-xl text-lg transition-all hover:scale-105 active:scale-95 disabled:opacity-70 disabled:scale-100"
                     style={{ background: "#2ECC71", color: "#0A0E1A", boxShadow: "0 0 28px rgba(46,204,113,0.3)" }}>
@@ -332,8 +353,8 @@ export default function ContactPage() {
               </div>
               {[
                 { day: "Monday – Friday",  time: "9:00 AM – 5:00 PM" },
-                { day: "Saturday",         time: "Emergency Only" },
-                { day: "Sunday",           time: "9:00 AM – 4:00 PM" },
+                { day: "Saturday",         time: "Emergency only" },
+                { day: "Sunday",           time: "10:00 AM – 4:00 PM" },
               ].map((h) => (
                 <div key={h.day} className="flex justify-between items-center py-2.5"
                   style={{ borderBottom: "1px solid #1A2540" }}>
@@ -374,10 +395,10 @@ export default function ContactPage() {
               <Globe size={32} className="mx-auto mb-3" style={{ color: "#2ECC71" }} />
               <h3 className="text-white font-bold mb-1">Visit Our Website</h3>
               <a href="https://solvara.vercel.app" className="text-[#2ECC71] text-sm hover:underline">
-                solvara.vercel.app
+                solvarasolutions.vercel.app
               </a>
               <div className="mt-4 pt-4 text-gray-400 text-xs" style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
-                 Westlands, Nairobi, Kenya
+                📍 Westlands, Nairobi, Kenya
               </div>
             </div>
           </motion.aside>

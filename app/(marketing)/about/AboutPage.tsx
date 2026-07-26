@@ -9,7 +9,7 @@ import {
 
 /* ─── Data ───────────────────────────────────────────────────── */
 const stats = [
-  { value: "200+", label: "Projects Delivered",  icon: CheckCircle2 },
+  { value: "50+", label: "Projects Delivered",  icon: CheckCircle2 },
   { value: "5+",   label: "Years Experience",     icon: Clock },
   { value: "98%",  label: "Client Satisfaction",  icon: Star },
   { value: "24/7", label: "Support Available",    icon: Headphones },
@@ -55,9 +55,9 @@ const values = [
 ];
 
 const team = [
-  { name: "Tonny Otieno",   role: "Director of Engineering",  avatar: "BM", color: "#0D518C", skills: ["React", "Next.js", "Node.js"] },
-  { name: "Daltone Dande",  role: " Designer",             avatar: "AN", color: "#2ECC71", skills: ["Figma", "Tailwind", "Framer"] },
-  { name: "Duke Dande",  role: " CTO ",            avatar: "KO", color: "#1A6BB5", skills: ["Python", "PostgreSQL", "AWS"] },
+  { name: "Tonny Otieno",   role: "Director of Engineering",  avatar: "TO", color: "#0D518C", skills: ["React", "Next.js", "Node.js"] },
+  { name: "Daltone Dande",  role: " Designer",             avatar: "DD", color: "#2ECC71", skills: ["Figma", "Tailwind", "Framer"] },
+  { name: "Duke Dande",  role: " CTO ",            avatar: "DD", color: "#1A6BB5", skills: ["Python", "PostgreSQL", "AWS"] },
 ];
 
 const milestones = [
