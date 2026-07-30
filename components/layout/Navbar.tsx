@@ -25,7 +25,7 @@ const company = [
   { icon: Info,          title: "About Us",   desc: "Our story, mission and vision",          href: "/about" },
   { icon: Users,         title: "Our Team",   desc: "Meet the people behind Solvara",         href: "/team" },
   { icon: FolderOpen,    title: "Portfolio",  desc: "Our live projects and design work",       href: "/portfolio" },
-  { icon: BarChart3,     title: "Pricing",    desc: "Transparent packages for every budget",  href: "/pricing" },
+  { icon: BarChart3,     title: "Investments",    desc: "Transparent packages for every budget",  href: "/investments" },
   { icon: BookOpen,      title: "Blog",       desc: "Insights, tutorials and tech news",       href: "/blog" },
   { icon: MessageSquare, title: "Contact",    desc: "Let's discuss your project",              href: "/contact" },
 ];
@@ -175,7 +175,7 @@ export default function Navbar() {
             </div>
 
             <Link href="/portfolio" className="px-4 py-2 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg text-sm font-medium transition-all">Portfolio</Link>
-            <Link href="/pricing"   className="px-4 py-2 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg text-sm font-medium transition-all">Pricing</Link>
+            <Link href="/investments"   className="px-4 py-2 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg text-sm font-medium transition-all">Investments</Link>
             <Link href="/blog"      className="px-4 py-2 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg text-sm font-medium transition-all">Blog</Link>
           </div>
 
@@ -258,7 +258,7 @@ export default function Navbar() {
               </div>
 
               <Link href="/portfolio" onClick={() => setMobileOpen(false)} className="block py-3 text-white font-semibold border-b border-white/10">Portfolio</Link>
-              <Link href="/pricing"   onClick={() => setMobileOpen(false)} className="block py-3 text-white font-semibold border-b border-white/10">Pricing</Link>
+              <Link href="/investments"   onClick={() => setMobileOpen(false)} className="block py-3 text-white font-semibold border-b border-white/10">Investments</Link>
               <Link href="/blog"      onClick={() => setMobileOpen(false)} className="block py-3 text-white font-semibold border-b border-white/10">Blog</Link>
               <Link href="/book"      onClick={() => setMobileOpen(false)} className="block py-3 text-white font-semibold border-b border-white/10">📅 Book a Call</Link>
               <Link href="/contact"   onClick={() => setMobileOpen(false)} className="block py-3 text-white font-semibold border-b border-white/10">Contact</Link>

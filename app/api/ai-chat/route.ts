@@ -15,7 +15,7 @@ function isLimited(ip: string) {
 }
 
 /* ─── System prompt ─────────────────────────────────────────── */
-const SYSTEM = `You are Sola, the AI assistant for Solvara Technologies — a web development and design agency based in Nairobi, Kenya.
+const SYSTEM = `You are Sola, the AI assistant for Solvara Solutions — a software and design agency based in Nairobi, Kenya.
 
 Your personality: friendly, knowledgeable, concise, and genuinely helpful. You speak naturally, not like a robot.
 
