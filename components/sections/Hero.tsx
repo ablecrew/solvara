@@ -78,7 +78,7 @@ const STATS = [
 ];
 
 const BADGES = [
-  { icon: Globe,  text: "Web Solutions" },
+  { icon: Globe,  text: "Software Solutions" },
   { icon: Zap,    text: "Fast Delivery" },
   { icon: Shield, text: "Secure & Reliable" },
 ];
