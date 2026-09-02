@@ -5,6 +5,7 @@ import Footer from "@/components/layout/Footer";
 import AIChatWidget from "@/components/ui/AIChatWidget";
 import CookieBanner from "@/components/ui/CookieBanner";
 import GoogleAnalytics from "@/components/ui/GoogleAnalytics";
+import CrispChat from "@/components/ui/CrispChat";
 
 const BASE_URL = "https://solvarasolutions.vercel.app";
 
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
     template: "%s | Solvara Solutions",
   },
   description:
-    "Solvara Solutions builds modern, fast and scalable websites and web applications for businesses across Kenya and Africa. Web development, graphic design, UI/UX and custom systems.",
+      "Solvara Solutions builds modern, fast and scalable websites and web applications for businesses across Kenya and Africa. Web development, graphic design, UI/UX and custom systems.",
   keywords: [
     "web development Kenya",
     "website design Nairobi",
@@ -41,7 +42,7 @@ export const metadata: Metadata = {
     siteName: "Solvara Solutions",
     title: "Solvara Solutions | Solutions That Drive Growth",
     description:
-      "Modern web development, graphic design and digital solutions for businesses in Kenya and Africa.",
+        "Modern web development, graphic design and digital solutions for businesses in Kenya and Africa.",
     images: [
       {
         url: `${BASE_URL}/og-image.png`,
@@ -77,65 +78,85 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+      <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+
         {/* JSON-LD structured data */}
         <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "ProfessionalService",
-              name: "Solvara Solutions",
-              description:
-                "Web development, graphic design and digital solutions for businesses in Kenya and Africa.",
-              url: BASE_URL,
-              telephone: "+254707528980",
-              email: "solvarasolutions@gmail.com",
-              address: {
-                "@type": "PostalAddress",
-                addressLocality: "Nairobi",
-                addressCountry: "KE",
-              },
-              geo: {
-                "@type": "GeoCoordinates",
-                latitude: -1.2921,
-                longitude: 36.8219,
-              },
-              openingHoursSpecification: [
-                { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday"], opens: "09:00", closes: "17:00" },
-                { "@type": "OpeningHoursSpecification", dayOfWeek: ["Sunday"], opens: "10:00", closes: "16:00" },
-              ],
-              sameAs: [
-                "https://github.com/ablecrew",
-                "https://www.linkedin.com/in/teddy-dande-0b804b310/",
-              ],
-              priceRange: "KES 500 - KES 480,000",
-              currenciesAccepted: "KES",
-              paymentAccepted: "M-Pesa, Bank Transfer",
-              areaServed: ["Kenya", "East Africa", "Africa"],
-              serviceType: [
-                "Web Development",
-                "Graphic Design",
-                "UI/UX Design",
-                "E-Commerce Development",
-                "Hospital Management Systems",
-                "Custom Web Applications",
-              ],
-            }),
-          }}
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "ProfessionalService",
+                name: "Solvara Solutions",
+                description:
+                    "Web development, graphic design and digital solutions for businesses in Kenya and Africa.",
+                url: BASE_URL,
+                telephone: "+254707528980",
+                email: "solvarasolutions@gmail.com",
+                address: {
+                  "@type": "PostalAddress",
+                  addressLocality: "Nairobi",
+                  addressCountry: "KE",
+                },
+                geo: {
+                  "@type": "GeoCoordinates",
+                  latitude: -1.2921,
+                  longitude: 36.8219,
+                },
+                openingHoursSpecification: [
+                  {
+                    "@type": "OpeningHoursSpecification",
+                    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                    opens: "09:00",
+                    closes: "17:00",
+                  },
+                  {
+                    "@type": "OpeningHoursSpecification",
+                    dayOfWeek: ["Sunday"],
+                    opens: "10:00",
+                    closes: "16:00",
+                  },
+                ],
+                sameAs: [
+                  "https://github.com/ablecrew",
+                  "https://www.linkedin.com/in/teddy-dande-0b804b310/",
+                ],
+                priceRange: "KES 500 - KES 480,000",
+                currenciesAccepted: "KES",
+                paymentAccepted: "M-Pesa, Bank Transfer",
+                areaServed: ["Kenya", "East Africa", "Africa"],
+                serviceType: [
+                  "Web Development",
+                  "Graphic Design",
+                  "UI/UX Design",
+                  "E-Commerce Development",
+                  "Hospital Management Systems",
+                  "Custom Web Applications",
+                ],
+              }),
+            }}
         />
       </head>
       <body className="antialiased">
-        <GoogleAnalytics />
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
-        <AIChatWidget />
-        <CookieBanner />
+      {/* Analytics — loads GA4 with consent-first mode */}
+      <GoogleAnalytics />
+
+      {/* Crisp Live Chat — client-only, no SSR */}
+      <CrispChat />
+
+      <Navbar />
+      <main>{children}</main>
+      <Footer />
+
+      {/* AI Chat Widget (Sola) — floating S button, bottom-right */}
+      <AIChatWidget />
+
+      {/* Cookie consent banner — GDPR / Kenya DPA 2019 compliant */}
+      <CookieBanner />
       </body>
-    </html>
+      </html>
   );
 }
